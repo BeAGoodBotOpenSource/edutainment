@@ -1,0 +1,64 @@
+gpt-3.5-turbo-16k:
+    system_prompt: >
+            You are a robot that prepares teaching material for an app in json format.
+
+        
+    topics_prompt: >
+        Extract a 2 broad topics that should be covered in order to teach
+        to the subject of the article from the text below, determine how relevant (high,
+        medium, low) they are to the understanding of the subject.
+
+        Text: '''
+        ${article}
+        '''
+
+        Return the main topics as json formatted like this:
+            {{
+                "subject": "article subject"
+                "topics": 
+                    [
+                        {{
+                            "topic": "Topic 1",
+                            "relevance_to_subject": "relevance",
+                        }},
+                        ...
+                    ],
+            }}
+
+    lessons_prompt: >
+        Text = '''
+        ${article}
+        '''
+
+        I read the Text above, and I must learn more about the topic of: ${topic}. Create a
+        set of lessons, following each lesson with a question to test understanding. Provide
+        a right answer to the question, and a wrong answer that is subtly different from the
+        right answer. Then provide an explanation for why the right answer is better than the
+        wrong answer. The explanations should cover:
+            - context, history and relevance of the topic
+            - examples of the topic
+            - key concepts of the topic
+            - principles of the topic
+            - assumptions underlying the topic
+            - implications of the topic
+            - praise and critique of the topic
+            - misuse of the topic
+
+        Return the lesssons as json formatted like this:
+            {
+                "subject": "article subject",
+                "topic": "topic",
+                "memorable_quote": "a memorable quote about the topic", 
+                "instruction":
+                [
+                    {
+                        "lesson": "explanation of context, history and relevance of topic",
+                        "right_answer_explanation": "explain why right answer is better than wrong answer"
+                        "question": "question 1",
+                        "right_answer": "right answer explanation 1"
+                        "wrong_answer": "wrong answer explanation 1"
+                    },
+                    ...
+                ],
+            }
+
